@@ -12,7 +12,6 @@ def juego_terminado(tablero):
              [0,3,6], [1,4,7], [2,5,8],
              [0,4,8], [2,4,6]]
     for i in casos:
-        print(i)
         if tablero[i[0]] != " " and tablero[i[0]] == tablero[i[1]] == tablero[i[2]]:
             return [True, tablero[i[0]]]
     if not casillas_disponibles(tablero):
@@ -39,8 +38,7 @@ def elegir_figura(figura):
 
 @app.route("/tirada/<casilla>")
 def tirada(casilla):
-    print(session["tablero"])
-    if "figura_jugador" in session and casilla in casillas_disponibles(session["tablero"]) and not juego_terminado(session["tablero"][0]):
+    if "figura_jugador" in session and casilla in casillas_disponibles(session["tablero"]) and not juego_terminado(session["tablero"])[0]:
         tablero = session["tablero"].copy()
         tablero[int(casilla)] = session["figura_jugador"]
         if not juego_terminado(tablero)[0]:
