@@ -22,28 +22,32 @@
                 {% for fila in range(0,7,3) %}
                 <tr>
                     {% for col in range(3) %}
-                    <td><img class="img-thumbnail" src="/static/images/empty.png" alt=""></td>
+                    <td>
+                    {% if session["tablero"][fila+col] == " " %}
+                    {% if not terminado[0] %}
+                        <a href="/tirada/{{ fila+col }}">
+                            <img class="img-thumbnail" src="/static/images/empty.png" alt="">
+                        </a>
+                    {% else %}
+                        <img class="img-thumbnail" src="/static/images/empty.png" alt="">
+                    {% endif %}
+                    {% else %}
+                        <img src="/static/images/{{ session["tablero"][fila+col] }}.png" alt="" class="img-thumbnail">
+                        {% endif %}
+                    </td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
-
-                <tr>
-                    <td><img class="img-thumbnail" src="/static/images/empty.png" alt=""></td>
-                    <td><img class="img-thumbnail" src="/static/images/o.png" alt=""></td>
-                    <td><img class="img-thumbnail" src="/static/images/x.png" alt=""></td>
-                </tr>
-                <tr>
-                    <td><img class="img-thumbnail" src="/static/images/empty.png" alt=""></td>
-                    <td><img class="img-thumbnail" src="/static/images/o.png" alt=""></td>
-                    <td><img class="img-thumbnail" src="/static/images/x.png" alt=""></td>
-                </tr>
-                <tr>
-                    <td><img class="img-thumbnail" src="/static/images/empty.png" alt=""></td>
-                    <td><img class="img-thumbnail" src="/static/images/o.png" alt=""></td>
-                    <td><img class="img-thumbnail" src="/static/images/x.png" alt=""></td>
-                </tr>
             </tbody>
         </table>
+        {% if terminado[0] %}
+        {% if not terminado[1] %}
+        <h3 class="display-3">Fue gato</h3>
+        {% else %}
+        <h3 class="display-3">Ganó {{ terminado[1] }}</h3>
+        {% endif %}
+        <a href="/nuevo_juego" class="btn btn-primary btn-lg">Jugar de nuevo</a>
+        {% endif %}
     </div>
 </body>
 </html>
